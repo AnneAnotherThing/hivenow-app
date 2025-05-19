@@ -191,6 +191,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const { password, ...userWithoutPassword } = req.user as any;
     res.json({ user: userWithoutPassword });
   });
+  
+  // User settings route
+  app.patch("/api/users/settings", isAuthenticated, async (req, res) => {
+    try {
+      const userId = (req.user as any).id;
+      const { firstName, lastName, contactPreference, contactValue } = req.body;
+      
+      // Update user settings
+      const updatedUser = await storage.updateUser(userId, {
+        firstName,
+        lastName,
+        contactPreference,
+        contactValue
+      });
+      
+      // Remove password from response
+      const { password, ...userWithoutPassword } = updatedUser;
+      
+      res.json({ user: userWithoutPassword });
+    } catch (error) {
+      console.error("Update user settings error:", error);
+      res.status(500).json({ message: "Failed to update user settings" });
+    }
+  });
 
   app.post("/api/auth/logout", (req, res) => {
     req.logout((err) => {

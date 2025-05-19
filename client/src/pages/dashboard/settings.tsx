@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
-import { useAuth } from "@/hooks/use-auth";
-import { z } from "zod";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
+import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/use-auth";
+import { apiRequest } from "@/lib/queryClient";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -19,358 +17,224 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Loader2, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-// Form schemas
-const profileFormSchema = z.object({
-  username: z.string().min(3, {
-    message: "Username must be at least 3 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
+// Form validation schema
+const formSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  contactPreference: z.enum(["email", "phone", "slack", "discord", "other"]),
+  contactValue: z.string().min(1, "Contact value is required"),
 });
 
-const passwordFormSchema = z.object({
-  currentPassword: z.string().min(1, {
-    message: "Current password is required.",
-  }),
-  newPassword: z.string().min(6, {
-    message: "New password must be at least 6 characters.",
-  }),
-  confirmPassword: z.string().min(6, {
-    message: "Please confirm your new password.",
-  }),
-}).refine(data => data.newPassword === data.confirmPassword, {
-  message: "Passwords do not match",
-  path: ["confirmPassword"],
-});
-
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
-type PasswordFormValues = z.infer<typeof passwordFormSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
 export default function Settings() {
-  const { user, loading } = useAuth();
-  const [, navigate] = useLocation();
+  const { user, updateUser } = useAuth();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const [updating, setUpdating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Redirect if not authenticated
-  useEffect(() => {
-    if (!user && !loading) {
-      navigate("/login");
+  // Initialize form with default values
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      contactPreference: (user?.contactPreference as any) || "email",
+      contactValue: user?.contactValue || "",
     }
-  }, [user, loading, navigate]);
-
-  // Initialize profile form
-  const profileForm = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
-    defaultValues: {
-      username: user?.username || "",
-      email: user?.email || "",
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-    },
-    // Update form values when user data loads
-    values: {
-      username: user?.username || "",
-      email: user?.email || "",
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-    },
   });
 
-  // Initialize password form
-  const passwordForm = useForm<PasswordFormValues>({
-    resolver: zodResolver(passwordFormSchema),
-    defaultValues: {
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    },
-  });
+  // Update form when user data is loaded
+  useEffect(() => {
+    if (user) {
+      form.setValue("firstName", user.firstName || "");
+      form.setValue("lastName", user.lastName || "");
+      form.setValue("contactPreference", (user.contactPreference as any) || "email");
+      form.setValue("contactValue", user.contactValue || "");
+    }
+  }, [user, form]);
 
-  // Update profile mutation
-  const updateProfileMutation = useMutation({
-    mutationFn: async (data: ProfileFormValues) => {
-      setUpdating(true);
-      const res = await apiRequest("PATCH", "/api/auth/user", data);
-      return res.json();
+  // Update user settings mutation
+  const updateSettingsMutation = useMutation({
+    mutationFn: async (data: FormValues) => {
+      return apiRequest("PATCH", "/api/users/settings", data);
     },
-    onSuccess: (data) => {
-      queryClient.setQueryData(["/api/auth/user"], data.user);
+    onSuccess: (response) => {
+      if (updateUser) {
+        updateUser(response.data.user);
+      }
       toast({
-        title: "Profile updated",
-        description: "Your profile information has been updated successfully.",
+        title: "Settings Updated",
+        description: "Your profile and notification preferences have been updated successfully.",
       });
-      setUpdating(false);
+      setIsSubmitting(false);
     },
     onError: (error: any) => {
       toast({
-        title: "Update failed",
-        description: error.message || "There was an error updating your profile.",
+        title: "Update Failed",
+        description: error.message || "There was an error updating your settings. Please try again.",
         variant: "destructive",
       });
-      setUpdating(false);
-    },
+      setIsSubmitting(false);
+    }
   });
 
-  // Change password mutation
-  const changePasswordMutation = useMutation({
-    mutationFn: async (data: PasswordFormValues) => {
-      setUpdating(true);
-      const res = await apiRequest("POST", "/api/auth/change-password", {
-        currentPassword: data.currentPassword,
-        newPassword: data.newPassword,
-      });
-      return res.json();
-    },
-    onSuccess: () => {
-      toast({
-        title: "Password updated",
-        description: "Your password has been changed successfully.",
-      });
-      passwordForm.reset();
-      setUpdating(false);
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Password change failed",
-        description: error.message || "There was an error changing your password.",
-        variant: "destructive",
-      });
-      setUpdating(false);
-    },
-  });
-
-  const onProfileSubmit = (data: ProfileFormValues) => {
-    updateProfileMutation.mutate(data);
-  };
-
-  const onPasswordSubmit = (data: PasswordFormValues) => {
-    changePasswordMutation.mutate(data);
+  // Form submission handler
+  const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
+    await updateSettingsMutation.mutateAsync(data);
   };
 
   if (!user) return null;
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
-          <p className="text-muted-foreground">
-            Manage your account settings and preferences.
-          </p>
-        </div>
-
-        <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="profile" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Profile</CardTitle>
-                <CardDescription>
-                  Update your personal information and how others see you on the platform.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center space-x-6 mb-8">
-                  <Avatar className="h-20 w-20">
-                    <AvatarFallback className="text-2xl">
-                      {user.firstName && user.lastName
-                        ? `${user.firstName[0]}${user.lastName[0]}`
-                        : user.username.substring(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-lg font-medium">
-                      {user.firstName && user.lastName
-                        ? `${user.firstName} ${user.lastName}`
-                        : user.username}
-                    </p>
-                    <p className="text-sm text-muted-foreground capitalize">{user.role}</p>
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold mb-6">Account Settings</h1>
+        
+        <div className="grid gap-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Profile Information</CardTitle>
+              <CardDescription>
+                Update your personal information and how you'd like to be contacted
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <FormField
+                      control={form.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>First Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter your first name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Last Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter your last name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
-                </div>
-                <Form {...profileForm}>
-                  <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <FormField
-                        control={profileForm.control}
-                        name="firstName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>First name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="John" {...field} value={field.value || ""} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={profileForm.control}
-                        name="lastName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Last name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Doe" {...field} value={field.value || ""} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+
+                  {user.role === "provider" && (
+                    <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-100 mb-6">
+                      <h3 className="text-lg font-medium text-yellow-800 mb-3">Contact Preferences for Notifications</h3>
+                      <p className="text-yellow-700 mb-4">
+                        As a service provider, you'll receive notifications for new projects and messages. 
+                        Select your preferred contact method to be notified immediately of any updates.
+                      </p>
+                      
+                      <div className="grid gap-6 md:grid-cols-2">
+                        <FormField
+                          control={form.control}
+                          name="contactPreference"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Preferred Contact Method</FormLabel>
+                              <Select 
+                                onValueChange={field.onChange} 
+                                defaultValue={field.value}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select contact method" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="email">Email</SelectItem>
+                                  <SelectItem value="phone">Phone / SMS</SelectItem>
+                                  <SelectItem value="slack">Slack</SelectItem>
+                                  <SelectItem value="discord">Discord</SelectItem>
+                                  <SelectItem value="other">Other</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormDescription>
+                                Choose how you want to be notified about new projects and updates.
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="contactValue"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Contact Details</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  placeholder={
+                                    form.watch("contactPreference") === "email" ? "your@email.com" :
+                                    form.watch("contactPreference") === "phone" ? "+1 (555) 123-4567" :
+                                    form.watch("contactPreference") === "slack" ? "@username or channel" :
+                                    form.watch("contactPreference") === "discord" ? "username#1234" :
+                                    "Contact information"
+                                  } 
+                                  {...field} 
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                {form.watch("contactPreference") === "email" && "We'll send project notifications to this email address."}
+                                {form.watch("contactPreference") === "phone" && "We'll send SMS notifications to this phone number."}
+                                {form.watch("contactPreference") === "slack" && "Enter your Slack username or channel."}
+                                {form.watch("contactPreference") === "discord" && "Enter your Discord username with tag."}
+                                {form.watch("contactPreference") === "other" && "Enter your preferred contact details."}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                     </div>
-                    <FormField
-                      control={profileForm.control}
-                      name="username"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Username</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormDescription>
-                            This is your public display name.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={profileForm.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input type="email" {...field} />
-                          </FormControl>
-                          <FormDescription>
-                            This email will be used for notifications and login.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" disabled={updating}>
-                      {updating ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Updating...
-                        </>
-                      ) : (
-                        "Update profile"
-                      )}
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                  )}
 
-          <TabsContent value="security" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Security</CardTitle>
-                <CardDescription>
-                  Update your password and manage security settings.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Form {...passwordForm}>
-                  <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-6">
-                    <FormField
-                      control={passwordForm.control}
-                      name="currentPassword"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Current password</FormLabel>
-                          <FormControl>
-                            <Input type="password" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={passwordForm.control}
-                      name="newPassword"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>New password</FormLabel>
-                          <FormControl>
-                            <Input type="password" {...field} />
-                          </FormControl>
-                          <FormDescription>
-                            Password must be at least 6 characters.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={passwordForm.control}
-                      name="confirmPassword"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Confirm new password</FormLabel>
-                          <FormControl>
-                            <Input type="password" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" disabled={updating}>
-                      {updating ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Updating...
-                        </>
-                      ) : (
-                        "Change password"
-                      )}
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Account Security</CardTitle>
-                <CardDescription>
-                  Security information about your account.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <div className="p-2 bg-green-50 rounded-full">
-                    <Shield className="h-5 w-5 text-green-500" />
-                  </div>
-                  <div>
-                    <p className="font-medium">Password protection</p>
-                    <p className="text-sm text-muted-foreground">
-                      Your account is protected with a password.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-full md:w-auto"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      "Save Changes"
+                    )}
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </DashboardLayout>
   );

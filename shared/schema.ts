@@ -22,6 +22,8 @@ export const users = pgTable("users", {
   avatarUrl: text("avatar_url"),
   stripeCustomerId: text("stripe_customer_id"),
   stripeSubscriptionId: text("stripe_subscription_id"),
+  contactPreference: text("contact_preference"),
+  contactValue: text("contact_value"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
