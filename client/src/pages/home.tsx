@@ -205,9 +205,14 @@ export default function Home() {
                       </Button>
                     </Link>
                     {tier.id === 'basic' && (
-                      <p className="mt-3 text-xs text-red-600 text-center">
-                        * Try it out! Once you're satisfied, apply your first project payment toward a Pro subscription with no additional cost. Monthly billing begins on the same day next month.
-                      </p>
+                      <div className="mt-3 text-center">
+                        <p className="text-xs text-red-600">
+                          * Try it out! Once you're satisfied, apply your first project payment toward a Pro subscription with no additional cost.
+                        </p>
+                        <p className="text-xs font-semibold text-red-600 mt-1">
+                          That's 3 more projects for the same price! Monthly billing begins on the same day next month.
+                        </p>
+                      </div>
                     )}
                   </div>
                 </div>
