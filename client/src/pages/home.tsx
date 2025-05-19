@@ -88,9 +88,9 @@ export default function Home() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-yellow-200 rounded-full blur-xl opacity-30"></div>
                   <img 
-                    src="https://images.unsplash.com/photo-1590243097760-106e82c04a69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                    src="/src/assets/bee-logo.png" 
                     alt="Bee - our mascot for BuzzNow" 
-                    className="relative rounded-lg shadow-2xl border-4 border-yellow-400 transform hover:scale-105 transition-transform duration-300"
+                    className="relative rounded-full shadow-2xl border-4 border-yellow-400 transform hover:scale-105 transition-transform duration-300 w-64 h-64"
                   />
                 </div>
               </div>
