@@ -214,7 +214,7 @@ export default function Home() {
                           * Try a project with no commitment! Love the results?
                         </p>
                         <p className="text-xs font-semibold text-red-600 mt-1">
-                          Upgrade to Pro within 7 days and get 3 FREE PROJECTS! Your first payment applies to upgrade, and billing starts 30 days after upgrading.
+                          Upgrade to Pro within 7 days and get 3 FREE PROJECTS. Your first payment applies to upgrade, and billing starts 30 days after upgrading.
                         </p>
                       </div>
                     )}
