@@ -63,13 +63,14 @@ export const SUBSCRIPTION_TIERS = [
     id: "enterprise",
     name: "Enterprise",
     description: "For large-scale needs",
-    price: "$799",
-    period: "per month",
+    price: "Custom",
+    period: "pricing",
     features: [
-      "Unlimited projects",
-      "1 day average delivery",
+      "Variable pricing based on project size",
+      "Custom delivery timelines",
       "Unlimited revisions",
-      "Dedicated account manager"
+      "Dedicated account manager",
+      "Tailored service package"
     ],
     popularChoice: false,
     color: "border-gray-200",
