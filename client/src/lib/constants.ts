@@ -36,8 +36,7 @@ export const SUBSCRIPTION_TIERS = [
       "Single project completion",
       "3 days average delivery",
       "1 revision included",
-      "Basic messaging support",
-      "* <small>Apply your first project payment toward a Pro subscription with no additional cost. Monthly billing begins on the same day.</small>"
+      "Basic messaging support"
     ],
     popularChoice: false,
     color: "border-gray-200",
