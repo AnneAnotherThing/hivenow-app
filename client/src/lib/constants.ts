@@ -37,7 +37,7 @@ export const SUBSCRIPTION_TIERS = [
       "3 days average delivery",
       "1 revision included",
       "Basic messaging support",
-      "Upgrade to Pro anytime and apply this payment"
+      "Once satisfied, choose to upgrade to Pro for the $99 from the first project - No additional cost! You'll be billed each month on the same day"
     ],
     popularChoice: false,
     color: "border-gray-200",
