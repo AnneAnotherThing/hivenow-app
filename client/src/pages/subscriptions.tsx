@@ -405,9 +405,9 @@ export default function Subscriptions() {
                         fontWeight: isPopular ? 'bold' : '',
                         border: isPopular ? 'none' : ''
                       }}
-                      onClick={() => handleSelectTier(tier.id)}
+                      onClick={() => tier.id === 'enterprise' ? window.location.href = 'mailto:contact@hivenow.com?subject=Enterprise%20Consultation%20Request' : handleSelectTier(tier.id)}
                       disabled={
-                        createSubscriptionMutation.isPending || 
+                        tier.id !== 'enterprise' && (createSubscriptionMutation.isPending || 
                         (subscription?.tier === tier.id && subscription?.status === 'active')
                       }
                     >
@@ -418,6 +418,8 @@ export default function Subscriptions() {
                         </>
                       ) : subscription?.tier === tier.id ? (
                         "Current Plan"
+                      ) : tier.id === 'enterprise' ? (
+                        "Book a Consultation"
                       ) : (
                         `Choose ${tier.name}`
                       )}
