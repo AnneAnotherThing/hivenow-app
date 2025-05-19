@@ -206,7 +206,7 @@ export default function Home() {
                     </Link>
                     {tier.id === 'basic' && (
                       <p className="mt-3 text-xs text-red-600 text-center">
-                        * Apply your first project payment toward a Pro subscription with no additional cost. Monthly billing begins on the same day next month.
+                        * Try it out! Once you're satisfied, apply your first project payment toward a Pro subscription with no additional cost. Monthly billing begins on the same day next month.
                       </p>
                     )}
                   </div>
