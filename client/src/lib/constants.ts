@@ -57,7 +57,7 @@ export const SUBSCRIPTION_TIERS = [
       "Scheduled weekly meetings with your resource"
     ],
     popularChoice: true,
-    color: "border-primary-500",
+    color: "border-[#0e47a1]",
     buttonVariant: "default"
   },
   {
