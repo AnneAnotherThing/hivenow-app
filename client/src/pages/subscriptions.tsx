@@ -408,7 +408,7 @@ export default function Subscriptions() {
                       onClick={() => tier.id === 'enterprise' ? window.location.href = 'mailto:contact@hivenow.com?subject=Enterprise%20Consultation%20Request' : handleSelectTier(tier.id)}
                       disabled={
                         tier.id !== 'enterprise' && (createSubscriptionMutation.isPending || 
-                        (subscription?.tier === tier.id && subscription?.status === 'active')
+                        (subscription?.tier === tier.id && subscription?.status === 'active'))
                       }
                     >
                       {createSubscriptionMutation.isPending && selectedTier === tier.id ? (

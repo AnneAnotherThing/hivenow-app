@@ -29,14 +29,15 @@ export const SUBSCRIPTION_TIERS = [
   {
     id: "basic",
     name: "Basic",
-    description: "For one-time simple projects",
+    description: "Try us with a single project",
     price: "$99",
     period: "per project",
     features: [
       "Single project completion",
       "3 days average delivery",
       "1 revision included",
-      "Basic messaging support"
+      "Basic messaging support",
+      "Upgrade to Pro anytime and apply this payment"
     ],
     popularChoice: false,
     color: "border-gray-200",
