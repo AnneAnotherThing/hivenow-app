@@ -14,11 +14,12 @@
 --border: 20 5.9% 90%;
 --input: 20 5.9% 90%;
 --primary: 45 93% 47%; /* Yellow/gold color for Hive-Rise */
---primary-foreground: 0 0% 100%;
+--primary-foreground: 0 0% 0%;
 --secondary: 215 100% 34%; /* Deep blue color for Hive-Rise */
 --secondary-foreground: 0 0% 100%;
 --accent: 45 93% 47%;
 --accent-foreground: 0 0% 0%;
+--yellow-hover: 45 93% 40%;
 --destructive: 0 84.2% 60.2%;
 --destructive-foreground: 60 9.1% 97.8%;
 --ring: 45 93% 47%;

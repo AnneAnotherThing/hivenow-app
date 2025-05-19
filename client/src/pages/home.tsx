@@ -65,31 +65,34 @@ export default function Home() {
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="pt-16 pb-20 bg-gradient-to-br from-primary-500 to-accent-500 text-white">
+        <section className="pt-16 pb-20 bg-gradient-to-br from-[#f9b81f] to-[#f5a302] text-black">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-12">
                 <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">Get your projects completed by professionals</h1>
-                <p className="text-lg sm:text-xl mb-8 text-white/90">Subscribe to our service and have your one-time or ongoing projects completed by vetted experts. Simple requirements, clear communication, guaranteed results.</p>
+                <p className="text-lg sm:text-xl mb-8 text-black/80">Subscribe to our service and have your one-time or ongoing projects completed by vetted experts. Simple requirements, clear communication, guaranteed results.</p>
                 <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                   <Link href={user ? "/submit-project" : "/register"}>
-                    <Button size="lg" variant="secondary" className="bg-white text-primary-700 hover:bg-gray-50 shadow-lg hover:shadow-xl">
+                    <Button size="lg" variant="secondary" className="bg-[#0e47a1] text-white hover:bg-[#0a3b82] shadow-lg hover:shadow-xl">
                       Start a Project
                     </Button>
                   </Link>
                   <Link href="#how-it-works">
-                    <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                    <Button size="lg" variant="outline" className="border-[#0e47a1] text-[#0e47a1] hover:bg-[#0e47a1]/10 bg-white/80">
                       How it Works
                     </Button>
                   </Link>
                 </div>
               </div>
-              <div className="md:w-1/2 mt-12 md:mt-0">
-                <img 
-                  src="https://images.unsplash.com/photo-1590243097760-106e82c04a69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                  alt="Bee - our mascot for BuzzNow" 
-                  className="rounded-lg shadow-2xl"
-                />
+              <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-yellow-200 rounded-full blur-xl opacity-30"></div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1590243097760-106e82c04a69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                    alt="Bee - our mascot for BuzzNow" 
+                    className="relative rounded-lg shadow-2xl border-4 border-yellow-400 transform hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
               </div>
             </div>
           </div>

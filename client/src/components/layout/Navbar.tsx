@@ -26,9 +26,9 @@ export default function Navbar() {
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <Link href="/" className="text-primary-500 font-bold text-xl flex items-center">
-                <Rows3 className="mr-2 h-6 w-6" />
-                <span>BuzzNow</span>
+              <Link href="/" className="text-[#f9b81f] font-bold text-2xl flex items-center">
+                <Rows3 className="mr-2 h-6 w-6 text-[#f9b81f]" />
+                <span className="tracking-wide">BuzzNow</span>
               </Link>
             </div>
             <nav className="hidden md:ml-10 md:flex space-x-8">
@@ -60,7 +60,7 @@ export default function Navbar() {
             {user ? (
               <div className="flex items-center space-x-4">
                 <Link href="/submit-project">
-                  <Button>Start a Project</Button>
+                  <Button className="bg-[#0e47a1] hover:bg-[#0a3b82] text-white">Start a Project</Button>
                 </Link>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
