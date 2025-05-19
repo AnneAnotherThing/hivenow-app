@@ -303,54 +303,125 @@ export default function Subscriptions() {
           )}
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {SUBSCRIPTION_TIERS.map((tier) => (
-              <div 
-                key={tier.id}
-                className={`shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105 ${tier.popularChoice ? 'transform scale-105 z-10 border-2 border-[#f9b81f] rounded-lg' : 'border border-gray-200 rounded-lg'}`}
-              >
-                <div className={`p-6 ${tier.popularChoice ? 'bg-[#0e47a1] text-white' : 'bg-white text-gray-800'}`}>
-                  {tier.popularChoice && (
-                    <div className="inline-block px-3 py-1 rounded-full bg-[#f9b81f] text-black font-extrabold text-xs uppercase mb-3 shadow-md">Most Popular</div>
-                  )}
-                  <h3 className="text-2xl font-bold mb-1">{tier.name}</h3>
-                  <p className="mb-4 opacity-90">{tier.description}</p>
-                  <div className="flex items-baseline">
-                    <span className="text-4xl font-bold">{tier.price}</span>
-                    <span className="ml-2">{tier.period}</span>
+            {SUBSCRIPTION_TIERS.map((tier) => {
+              const isPopular = tier.popularChoice;
+              return (
+                <div 
+                  key={tier.id}
+                  style={{ 
+                    backgroundColor: isPopular ? '#0e47a1' : 'white',
+                    color: isPopular ? 'white' : 'black',
+                    borderRadius: '0.5rem',
+                    overflow: 'hidden',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                    transform: isPopular ? 'scale(1.05)' : 'none',
+                    zIndex: isPopular ? 10 : 0,
+                    border: isPopular ? '2px solid #f9b81f' : '1px solid #e5e7eb'
+                  }}
+                  className="transition-transform duration-300 hover:scale-105"
+                >
+                  <div style={{ padding: '1.5rem' }}>
+                    {isPopular && (
+                      <div style={{ 
+                        backgroundColor: '#f9b81f', 
+                        color: 'black',
+                        padding: '0.25rem 0.75rem', 
+                        borderRadius: '9999px',
+                        display: 'inline-block',
+                        marginBottom: '0.75rem',
+                        fontWeight: 'bold',
+                        fontSize: '0.75rem',
+                        textTransform: 'uppercase',
+                        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                      }}>
+                        Most Popular
+                      </div>
+                    )}
+                    <h3 style={{ 
+                      fontSize: '1.5rem', 
+                      fontWeight: 'bold', 
+                      marginBottom: '0.25rem', 
+                      color: isPopular ? 'white' : 'black' 
+                    }}>
+                      {tier.name}
+                    </h3>
+                    <p style={{ 
+                      marginBottom: '1rem', 
+                      opacity: 0.9,
+                      color: isPopular ? 'white' : '#4b5563'
+                    }}>
+                      {tier.description}
+                    </p>
+                    <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                      <span style={{ 
+                        fontSize: '2.25rem', 
+                        fontWeight: 'bold',
+                        color: isPopular ? 'white' : 'black'
+                      }}>
+                        {tier.price}
+                      </span>
+                      <span style={{ 
+                        marginLeft: '0.5rem',
+                        color: isPopular ? 'white' : '#4b5563'
+                      }}>
+                        {tier.period}
+                      </span>
+                    </div>
+                  </div>
+                  <div style={{ 
+                    padding: '1.5rem',
+                    backgroundColor: isPopular ? '#0e47a1' : 'white',
+                    borderTop: isPopular ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid #e5e7eb'
+                  }}>
+                    <ul style={{ marginBottom: '2rem' }}>
+                      {tier.features.map((feature, index) => (
+                        <li key={index} style={{ 
+                          display: 'flex', 
+                          alignItems: 'flex-start',
+                          marginBottom: '1rem',
+                          color: isPopular ? 'white' : '#4b5563'
+                        }}>
+                          <CheckIcon style={{ 
+                            width: '1.25rem', 
+                            height: '1.25rem', 
+                            marginRight: '0.5rem',
+                            marginTop: '0.25rem',
+                            color: isPopular ? '#f9b81f' : '#10b981'
+                          }} />
+                          <span dangerouslySetInnerHTML={{ __html: feature }}></span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Button 
+                      variant={tier.buttonVariant as any} 
+                      className={`w-full ${isPopular ? 'shadow-md' : ''}`}
+                      style={{ 
+                        backgroundColor: isPopular ? '#f9b81f' : '',
+                        color: isPopular ? 'black' : '',
+                        fontWeight: isPopular ? 'bold' : '',
+                        border: isPopular ? 'none' : ''
+                      }}
+                      onClick={() => handleSelectTier(tier.id)}
+                      disabled={
+                        createSubscriptionMutation.isPending || 
+                        (subscription?.tier === tier.id && subscription?.status === 'active')
+                      }
+                    >
+                      {createSubscriptionMutation.isPending && selectedTier === tier.id ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : subscription?.tier === tier.id ? (
+                        "Current Plan"
+                      ) : (
+                        `Choose ${tier.name}`
+                      )}
+                    </Button>
                   </div>
                 </div>
-                <div className={`p-6 ${tier.popularChoice ? 'bg-[#0e47a1]/95 text-white' : 'bg-white text-gray-800'}`}>
-                  <ul className="space-y-4">
-                    {tier.features.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <CheckIcon className={`h-5 w-5 ${tier.popularChoice ? 'text-[#f9b81f]' : 'text-green-500'} mt-1 mr-2`} />
-                        <span dangerouslySetInnerHTML={{ __html: feature }}></span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button 
-                    variant={tier.buttonVariant as any} 
-                    className={`mt-8 w-full ${tier.popularChoice ? 'shadow-md' : ''}`}
-                    onClick={() => handleSelectTier(tier.id)}
-                    disabled={
-                      createSubscriptionMutation.isPending || 
-                      (subscription?.tier === tier.id && subscription?.status === 'active')
-                    }
-                  >
-                    {createSubscriptionMutation.isPending && selectedTier === tier.id ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Processing...
-                      </>
-                    ) : subscription?.tier === tier.id ? (
-                      "Current Plan"
-                    ) : (
-                      `Choose ${tier.name}`
-                    )}
-                  </Button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="mt-16 max-w-3xl mx-auto text-center">
