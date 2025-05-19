@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { SUBSCRIPTION_TIERS } from "@/lib/constants";
-import { FileIcon, UsersIcon, CheckIcon } from "lucide-react";
+import { FileIcon, UsersIcon, CheckIcon, RefreshCwIcon } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -106,7 +106,7 @@ export default function Home() {
               <p className="max-w-2xl mx-auto text-lg text-gray-600">A simple process to get your projects completed without the hassle.</p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-4 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 text-center">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 text-primary-500 mb-6">
                   <FileIcon className="h-8 w-8" />
@@ -129,6 +129,14 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">3. Project Delivery</h3>
                 <p className="text-gray-600">Receive your completed project on time with continuous updates along the way.</p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 text-primary-500 mb-6">
+                  <RefreshCwIcon className="h-8 w-8" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">4. Revisions</h3>
+                <p className="text-gray-600">We'll fix any discrepancies or accuracy issues at no extra cost. Cosmetic changes or new data interpretations depend on your subscription plan.</p>
               </div>
             </div>
           </div>
