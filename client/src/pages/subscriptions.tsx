@@ -308,15 +308,15 @@ export default function Subscriptions() {
                 key={tier.id}
                 className={`bg-white rounded-lg shadow-lg overflow-hidden border ${tier.color} transition-transform duration-300 hover:transform hover:scale-105 ${tier.popularChoice ? 'transform scale-105 z-10 border-2' : ''}`}
               >
-                <div className={`p-6 ${tier.popularChoice ? 'bg-gradient-to-r from-[#0e47a1] to-[#1a5dc7] text-white' : 'bg-gray-50 border-b border-gray-200'}`}>
+                <div className={`p-6 ${tier.popularChoice ? 'bg-[#0e47a1] border-b-4 border-[#f9b81f]' : 'bg-gray-50 border-b border-gray-200'}`}>
                   {tier.popularChoice && (
-                    <div className="inline-block px-3 py-1 rounded-full bg-[#f9b81f] text-black font-bold text-xs uppercase mb-3">Most Popular</div>
+                    <div className="inline-block px-3 py-1 rounded-full bg-[#f9b81f] text-black font-extrabold text-xs uppercase mb-3 shadow-md">Most Popular</div>
                   )}
-                  <h3 className="text-2xl font-bold mb-1">{tier.name}</h3>
-                  <p className={`${tier.popularChoice ? 'text-white/90' : 'text-gray-600'} mb-4`}>{tier.description}</p>
+                  <h3 className="text-2xl font-bold mb-1 text-white">{tier.name}</h3>
+                  <p className="text-white mb-4">{tier.description}</p>
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-bold">{tier.price}</span>
-                    <span className="ml-2">{tier.period}</span>
+                    <span className={`text-4xl font-bold ${tier.popularChoice ? 'text-white' : ''}`}>{tier.price}</span>
+                    <span className={`ml-2 ${tier.popularChoice ? 'text-white' : ''}`}>{tier.period}</span>
                   </div>
                 </div>
                 <div className="p-6">
