@@ -306,7 +306,7 @@ export default function Subscriptions() {
             {SUBSCRIPTION_TIERS.map((tier) => (
               <div 
                 key={tier.id}
-                className={`bg-white rounded-lg shadow-lg overflow-hidden border ${tier.color} transition-transform duration-300 hover:transform hover:scale-105 ${tier.popularChoice ? 'transform scale-105 z-10 border-2' : ''}`}
+                className={`rounded-lg shadow-lg overflow-hidden border ${tier.color} transition-transform duration-300 hover:transform hover:scale-105 ${tier.popularChoice ? 'transform scale-105 z-10 border-2 border-[#f9b81f]' : ''}`}
               >
                 <div className={`p-6 ${tier.popularChoice ? 'bg-[#0e47a1] border-b-4 border-[#f9b81f]' : 'bg-gray-50 border-b border-gray-200'}`}>
                   {tier.popularChoice && (
