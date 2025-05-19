@@ -19,7 +19,7 @@ export default function Home() {
   const testimonials = [
     {
       id: 1,
-      content: "ProjectPro exceeded my expectations. They understood exactly what I needed for my website redesign and delivered it on time. The communication was excellent throughout the process.",
+      content: "BuzzNow exceeded my expectations. They understood exactly what I needed for my website redesign and delivered it on time. The communication was excellent throughout the process.",
       author: "Sarah Johnson",
       role: "Marketing Director",
       rating: 5,
@@ -86,8 +86,8 @@ export default function Home() {
               </div>
               <div className="md:w-1/2 mt-12 md:mt-0">
                 <img 
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                  alt="Professional project consultation" 
+                  src="https://images.unsplash.com/photo-1590243097760-106e82c04a69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                  alt="Bee - our mascot for BuzzNow" 
                   className="rounded-lg shadow-2xl"
                 />
               </div>
@@ -99,7 +99,7 @@ export default function Home() {
         <section id="how-it-works" className="py-20 bg-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">How ProjectPro Works</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">How BuzzNow Works</h2>
               <p className="max-w-2xl mx-auto text-lg text-gray-600">A simple process to get your projects completed without the hassle.</p>
             </div>
             
@@ -221,7 +221,7 @@ export default function Home() {
         <section className="py-20 bg-primary-500">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-white mb-6">Ready to get started?</h2>
-            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">Join thousands of satisfied customers who trust ProjectPro with their projects.</p>
+            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">Join thousands of satisfied customers who trust BuzzNow with their projects.</p>
             <Link href={user ? "/submit-project" : "/register"}>
               <Button size="lg" className="bg-white text-primary-700 hover:bg-gray-50">
                 {user ? "Submit Your Project" : "Sign Up Now"}

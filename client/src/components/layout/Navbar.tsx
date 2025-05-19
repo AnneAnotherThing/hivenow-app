@@ -28,7 +28,7 @@ export default function Navbar() {
             <div className="flex-shrink-0">
               <Link href="/" className="text-primary-500 font-bold text-xl flex items-center">
                 <Rows3 className="mr-2 h-6 w-6" />
-                <span>ProjectPro</span>
+                <span>BuzzNow</span>
               </Link>
             </div>
             <nav className="hidden md:ml-10 md:flex space-x-8">
