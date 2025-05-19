@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { SUBSCRIPTION_TIERS } from "@/lib/constants";
-import { FileIcon, UsersIcon, CheckIcon, RefreshCwIcon } from "lucide-react";
+import { FileIcon, UsersIcon, CheckIcon, RefreshCwIcon, PhoneIcon } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -137,6 +137,26 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">4. Revisions</h3>
                 <p className="text-gray-600">We'll fix any discrepancies or accuracy issues at no extra cost. Cosmetic changes or new data interpretations depend on your subscription plan.</p>
+              </div>
+            </div>
+            
+            {/* Real People Support Callout */}
+            <div className="mt-12 p-8 bg-yellow-50 rounded-lg border border-yellow-200 max-w-3xl mx-auto">
+              <div className="flex flex-col md:flex-row items-center">
+                <div className="md:w-1/4 mb-6 md:mb-0 flex justify-center">
+                  <div className="bg-primary-100 p-4 rounded-full">
+                    <PhoneIcon className="h-16 w-16 text-primary-500" />
+                  </div>
+                </div>
+                <div className="md:w-3/4 md:pl-6">
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900">Real People, Ready to Talk</h3>
+                  <p className="text-gray-700 mb-4">
+                    We're not just an online platform - we're real people who care about your success. If you ever have questions or need assistance, we're just a phone call away. Our team is ready to pick up the phone and provide personalized support whenever you need it.
+                  </p>
+                  <p className="font-medium text-primary-700">
+                    Your satisfaction matters. Talk to a real person who understands your specific needs.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
