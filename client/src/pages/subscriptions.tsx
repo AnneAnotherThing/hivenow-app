@@ -310,7 +310,7 @@ export default function Subscriptions() {
                   key={tier.id}
                   style={{ 
                     backgroundColor: isPopular ? '#0e47a1' : 'white',
-                    color: isPopular ? 'white' : 'black',
+                    color: isPopular ? '#ffffff' : 'black',
                     borderRadius: '0.5rem',
                     overflow: 'hidden',
                     boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
@@ -341,14 +341,15 @@ export default function Subscriptions() {
                       fontSize: '1.5rem', 
                       fontWeight: 'bold', 
                       marginBottom: '0.25rem', 
-                      color: isPopular ? 'white' : 'black' 
+                      color: isPopular ? '#ffffff' : 'black' 
                     }}>
                       {tier.name}
                     </h3>
                     <p style={{ 
                       marginBottom: '1rem', 
                       opacity: 0.9,
-                      color: isPopular ? 'white' : '#4b5563'
+                      color: isPopular ? '#ffffff' : '#4b5563',
+                      fontWeight: isPopular ? 'medium' : 'normal'
                     }}>
                       {tier.description}
                     </p>
@@ -356,13 +357,15 @@ export default function Subscriptions() {
                       <span style={{ 
                         fontSize: '2.25rem', 
                         fontWeight: 'bold',
-                        color: isPopular ? 'white' : 'black'
+                        color: isPopular ? '#ffffff' : 'black',
+                        textShadow: isPopular ? '0px 1px 2px rgba(0,0,0,0.3)' : 'none'
                       }}>
                         {tier.price}
                       </span>
                       <span style={{ 
                         marginLeft: '0.5rem',
-                        color: isPopular ? 'white' : '#4b5563'
+                        color: isPopular ? '#ffffff' : '#4b5563',
+                        fontWeight: isPopular ? 'medium' : 'normal'
                       }}>
                         {tier.period}
                       </span>
@@ -379,7 +382,8 @@ export default function Subscriptions() {
                           display: 'flex', 
                           alignItems: 'flex-start',
                           marginBottom: '1rem',
-                          color: isPopular ? 'white' : '#4b5563'
+                          color: isPopular ? '#ffffff' : '#4b5563',
+                          fontWeight: isPopular ? 'medium' : 'normal'
                         }}>
                           <CheckIcon style={{ 
                             width: '1.25rem', 
