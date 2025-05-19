@@ -191,7 +191,7 @@ export default function Home() {
                     <ul className="space-y-4">
                       {tier.features.map((feature, index) => (
                         <li key={index} className="flex items-start">
-                          <CheckIcon className="h-5 w-5 text-green-500 mt-1 mr-2" />
+                          <CheckIcon className="h-5 w-5 text-yellow-500 mt-1 mr-2" />
                           <span dangerouslySetInnerHTML={{ __html: feature }}></span>
                         </li>
                       ))}
