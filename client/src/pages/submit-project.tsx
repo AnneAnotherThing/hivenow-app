@@ -164,6 +164,13 @@ export default function SubmitProject() {
           <div className="text-center mb-12">
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Start Your Project</h1>
             <p className="max-w-2xl mx-auto text-lg text-gray-600">Tell us what you need and we'll get it done.</p>
+            <div className="mt-4 max-w-2xl mx-auto">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p className="text-sm text-gray-700">
+                  <span className="font-medium">Choose what works for you:</span> Complete a one-time project with no commitment, or explore our flexible subscription options. You're never locked in, and you can adjust your plan anytime.
+                </p>
+              </div>
+            </div>
           </div>
 
           <Card className="border border-gray-200 shadow-lg">
@@ -285,9 +292,9 @@ export default function SubmitProject() {
                     name="subscriptionType"
                     render={({ field }) => (
                       <FormItem className="space-y-3">
-                        <FormLabel>Project Type</FormLabel>
+                        <FormLabel>Project Options</FormLabel>
                         <FormDescription>
-                          Select the best option for your needs. No pressure - it's up to you!
+                          Select the best option for your needs. No pressure - there's no long-term obligation with any choice!
                         </FormDescription>
                         <FormControl>
                           <RadioGroup

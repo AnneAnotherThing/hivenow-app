@@ -70,7 +70,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-12">
                 <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">Get your projects completed by professionals</h1>
-                <p className="text-lg sm:text-xl mb-8 text-black/80">Subscribe to our service and have your one-time or ongoing projects completed by vetted experts. Simple requirements, clear communication, guaranteed results.</p>
+                <p className="text-lg sm:text-xl mb-8 text-black/80">Get your projects done with no long-term commitment. Try us for free with your first one-time project or explore our flexible subscription options - you're never locked in. Simple requirements, clear communication, guaranteed results.</p>
                 <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                   <Link href={user ? "/submit-project" : "/register"}>
                     <Button size="lg" variant="secondary" className="bg-[#0e47a1] text-white hover:bg-[#0a3b82] shadow-lg hover:shadow-xl">
