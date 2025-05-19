@@ -46,7 +46,7 @@ export const SUBSCRIPTION_TIERS = [
     id: "pro",
     name: "Pro",
     description: "For regular project needs",
-    price: "$299",
+    price: "$199",
     period: "per month",
     features: [
       "4 projects per month",
