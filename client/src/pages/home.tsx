@@ -211,10 +211,10 @@ export default function Home() {
                     {tier.id === 'basic' && (
                       <div className="mt-3 text-center">
                         <p className="text-xs text-red-600">
-                          * Try it out! Once you're satisfied, apply your first project payment toward a Pro subscription with no additional cost.
+                          * Try a project with no commitment! Love the results?
                         </p>
                         <p className="text-xs font-semibold text-red-600 mt-1">
-                          Upgrading within a week following the first project gives you 3 free projects. Subscription pricing begins 30 days following the upgrade!
+                          Upgrade to Pro within 7 days and get 3 FREE PROJECTS! Your first payment applies to upgrade, and billing starts 30 days after upgrading.
                         </p>
                       </div>
                     )}
