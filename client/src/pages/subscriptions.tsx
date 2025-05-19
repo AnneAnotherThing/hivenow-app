@@ -308,9 +308,9 @@ export default function Subscriptions() {
                 key={tier.id}
                 className={`bg-white rounded-lg shadow-lg overflow-hidden border ${tier.color} transition-transform duration-300 hover:transform hover:scale-105 ${tier.popularChoice ? 'transform scale-105 z-10 border-2' : ''}`}
               >
-                <div className={`p-6 ${tier.popularChoice ? 'bg-primary-500 text-white' : 'bg-gray-50 border-b border-gray-200'}`}>
+                <div className={`p-6 ${tier.popularChoice ? 'bg-[#0e47a1] text-white' : 'bg-gray-50 border-b border-gray-200'}`}>
                   {tier.popularChoice && (
-                    <div className="inline-block px-3 py-1 rounded-full bg-white text-primary-500 text-xs font-semibold uppercase mb-3">Most Popular</div>
+                    <div className="inline-block px-3 py-1 rounded-full bg-white text-[#0e47a1] text-xs font-semibold uppercase mb-3">Most Popular</div>
                   )}
                   <h3 className="text-2xl font-bold mb-1">{tier.name}</h3>
                   <p className={`${tier.popularChoice ? 'text-white/80' : 'text-gray-600'} mb-4`}>{tier.description}</p>
