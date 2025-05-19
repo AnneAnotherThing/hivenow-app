@@ -19,7 +19,7 @@ export default function Home() {
   const testimonials = [
     {
       id: 1,
-      content: "BuzzNow exceeded my expectations. They understood exactly what I needed for my website redesign and delivered it on time. The communication was excellent throughout the process.",
+      content: "HiveNow exceeded my expectations. They understood exactly what I needed for my website redesign and delivered it on time. The communication was excellent throughout the process.",
       author: "Sarah Johnson",
       role: "Marketing Director",
       rating: 5,
@@ -89,7 +89,7 @@ export default function Home() {
                   <div className="absolute inset-0 bg-yellow-200 rounded-full blur-xl opacity-30"></div>
                   <img 
                     src="/src/assets/bee-logo.png" 
-                    alt="Bee - our mascot for BuzzNow" 
+                    alt="Bee - our mascot for HiveNow" 
                     className="relative rounded-full shadow-2xl border-4 border-yellow-400 transform hover:scale-105 transition-transform duration-300 w-64 h-64"
                   />
                 </div>
@@ -102,7 +102,7 @@ export default function Home() {
         <section id="how-it-works" className="py-20 bg-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">How BuzzNow Works</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">How HiveNow Works</h2>
               <p className="max-w-2xl mx-auto text-lg text-gray-600">A simple process to get your projects completed without the hassle.</p>
             </div>
             
@@ -232,7 +232,7 @@ export default function Home() {
         <section className="py-20 bg-primary-500">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-white mb-6">Ready to get started?</h2>
-            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">Join thousands of satisfied customers who trust BuzzNow with their projects.</p>
+            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">Join thousands of satisfied customers who trust HiveNow with their projects.</p>
             <Link href={user ? "/submit-project" : "/register"}>
               <Button size="lg" className="bg-white text-primary-700 hover:bg-gray-50">
                 {user ? "Submit Your Project" : "Sign Up Now"}

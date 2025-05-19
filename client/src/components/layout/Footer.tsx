@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <div className="text-xl font-bold flex items-center mb-4">
               <Rows3 className="mr-2 h-6 w-6" />
-              <span>BuzzNow</span>
+              <span>HiveNow</span>
             </div>
             <p className="text-gray-400 mb-4">Professional project completion services for businesses and individuals.</p>
             <div className="flex space-x-4">
@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} BuzzNow. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} HiveNow. All rights reserved.</p>
         </div>
       </div>
     </footer>

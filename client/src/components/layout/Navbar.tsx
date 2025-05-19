@@ -27,8 +27,8 @@ export default function Navbar() {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <Link href="/" className="text-[#f9b81f] font-bold text-2xl flex items-center">
-                <img src="/src/assets/bee-logo.png" alt="BuzzNow Logo" className="mr-2 h-8 w-8" />
-                <span className="tracking-wide">BuzzNow</span>
+                <img src="/src/assets/bee-logo.png" alt="HiveNow Logo" className="mr-2 h-8 w-8" />
+                <span className="tracking-wide">HiveNow</span>
               </Link>
             </div>
             <nav className="hidden md:ml-10 md:flex space-x-8">
