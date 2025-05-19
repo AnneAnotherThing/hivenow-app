@@ -201,7 +201,11 @@ export default function Home() {
                         variant={tier.buttonVariant as any} 
                         className={`mt-8 w-full ${tier.popularChoice ? 'shadow-md' : ''}`}
                       >
-                        Choose {tier.name}
+{tier.id === 'basic' 
+                          ? 'Submit a project!' 
+                          : tier.id === 'pro' 
+                            ? 'Schedule a consultation!' 
+                            : 'Schedule a Conference Call!'}
                       </Button>
                     </Link>
                     {tier.id === 'basic' && (
