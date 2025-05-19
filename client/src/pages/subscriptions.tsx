@@ -310,7 +310,7 @@ export default function Subscriptions() {
               >
                 <div className={`p-6 ${tier.popularChoice ? 'bg-[#f9b81f] text-black' : 'bg-gray-50 border-b border-gray-200'}`}>
                   {tier.popularChoice && (
-                    <div className="inline-block px-3 py-1 rounded-full bg-white text-[#f9b81f] font-bold text-xs uppercase mb-3">Most Popular</div>
+                    <div className="inline-block px-3 py-1 rounded-full bg-white text-[#0e47a1] font-bold text-xs uppercase mb-3">Most Popular</div>
                   )}
                   <h3 className="text-2xl font-bold mb-1">{tier.name}</h3>
                   <p className={`${tier.popularChoice ? 'text-black/80' : 'text-gray-600'} mb-4`}>{tier.description}</p>
