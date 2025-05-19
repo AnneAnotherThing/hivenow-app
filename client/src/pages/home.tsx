@@ -214,7 +214,7 @@ export default function Home() {
                           * Try it out! Once you're satisfied, apply your first project payment toward a Pro subscription with no additional cost.
                         </p>
                         <p className="text-xs font-semibold text-red-600 mt-1">
-                          3 more projects included! Monthly billing begins on the same day next month.
+                          Includes 3 additional projects per month. Subscription billing commences the following month.
                         </p>
                       </div>
                     )}
