@@ -196,7 +196,13 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <Link href={user ? "/subscriptions" : "/register"}>
+                    <Link href={
+                        tier.id === 'basic' 
+                          ? user ? "/submit-project" : "/register"
+                          : tier.id === 'pro'
+                            ? `/schedule?type=consultation`
+                            : `/schedule?type=factfinding`
+                      }>
                       <Button 
                         variant={tier.buttonVariant as any} 
                         className={`mt-8 w-full ${tier.popularChoice ? 'shadow-md' : ''}`}
@@ -205,7 +211,7 @@ export default function Home() {
                           ? 'Submit a project!' 
                           : tier.id === 'pro' 
                             ? 'Schedule a consultation!' 
-                            : 'Schedule a Conference Call!'}
+                            : 'Schedule a Fact Finding Mission!'}
                       </Button>
                     </Link>
                     {tier.id === 'basic' && (

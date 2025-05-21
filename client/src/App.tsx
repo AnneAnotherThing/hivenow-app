@@ -16,6 +16,7 @@ import Messages from "@/pages/dashboard/messages";
 import Settings from "@/pages/dashboard/settings";
 import SubmitProject from "@/pages/submit-project";
 import Subscriptions from "@/pages/subscriptions";
+import Schedule from "@/pages/schedule";
 import ProjectDetail from "@/pages/project/[id]";
 
 function Router() {
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/subscriptions" component={Subscriptions} />
+      <Route path="/schedule" component={Schedule} />
       
       {/* Auth Required Routes */}
       <Route path="/dashboard" component={Dashboard} />
